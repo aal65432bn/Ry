@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Glowing Icons</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      width: 100vw;
+      background: #18191f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+    .icon {
+      font-size: 8em;
+      background-color: #18191f;
+      color: #fff;
+      box-shadow: 2px 2px 2px #00000080, 10px 1px 12px #00000080,
+        2px 2px 10px #00000080, 2px 2px 3px #00000080, inset 2px 2px 10px #00000080,
+        inset 2px 2px 10px #00000080, inset 2px 2px 10px #00000080,
+        inset 2px 2px 10px #00000080;
+      border-radius: 29px;
+      padding: 11px 19px;
+      margin: 0 40px;
+      margin-bottom: 20px; /* 设置每个图标之间的垂直间距 */
+      animation: animate 3s linear infinite;
+      text-shadow: 0 0 50px #0072ff, 0 0 100px #0072ff, 0 0 150px #0072ff,
+        0 0 200px #0072ff;
+      cursor: pointer; /* Add cursor pointer to indicate clickability */
+    }
+    .icon:hover {
+      transform: scale(1.1); /* Optional: Add hover effect */
+    }
+    .quote-table {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      margin-top: 20px;
+      max-width: 80%;
+      overflow-x: auto;
+      display: none; /* Initially hide quote tables */
+    }
+    .quote-table.active {
+      display: block; /* Display quote table when active */
+    }
+    .quote-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .quote-table th, .quote-table td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    .quote-table th {
+      background-color: #f2f2f2;
+    }
+    .quote-table td {
+      font-size: 16px;
+    }
+    @keyframes animate {
+      from {
+        filter: hue-rotate(0deg);
+      }
+      to {
+        filter: hue-rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <style>
+  .container {
+    display: flex;
+    flex-direction: column; /* 将容器内元素垂直排列 */
+    align-items: center; /* 可选，使图标在垂直方向上居中对齐 */
+  }
+</style>
+
+<div class="container">
+  <div class="icon" onclick="showQuote('Facebook', 999)"><i class="fab fa-facebook-square"></i></div>
+  <div class="icon" onclick="showQuote('Apple', 1299)"><i class="fab fa-instagram"></i></div>
+  <div class="icon" onclick="showQuote('Twitter', 399)"><i class="fab fa-line"></i></div>
+  <div class="icon" onclick="showQuote('GitHub', 699)"><i class="fab fa-youtube"></i></div>
+  <div class="icon" onclick="showQuote('GitHub', 699)"><i class="fab fa-tiktok"></i></div>
+  <div class="icon" onclick="showQuote('GitHub', 699)"><i class="fab fa-twitter"></i></div>
+  <div class="icon" onclick="showQuote('GitHub', 699)"><i class="fab fa-telegram"></i></div>
+  <div class="icon" onclick="showQuote('GitHub', 699)"><i class="fab fa-twitch"></i></div>
+  <div class="icon" onclick="showQuote('GitHub', 699)"><i class="fab fa-spotify"></i></div>
+</div>
+
+
+
+  <!-- JavaScript to handle quote display -->
+  <script>
+    function showQuote(item, price) {
+      var quoteTable;
+
+      // Hide all quote tables
+      var allTables = document.querySelectorAll('.quote-table');
+      allTables.forEach(function(table) {
+        table.classList.remove('active');
+      });
+
+      // Determine which quote table to show based on the item clicked
+      switch (item) {
+        case 'Apple':
+          quoteTable = document.getElementById('quoteTableApple');
+          break;
+        case 'Twitter':
+          quoteTable = document.getElementById('quoteTableTwitter');
+          break;
+        case 'GitHub':
+          quoteTable = document.getElementById('quoteTableGitHub');
+          break;
+        case 'Facebook':
+          quoteTable = document.getElementById('quoteTableFacebook');
+          break;
+        default:
+          quoteTable = null;
+      }
+
+      // Display the selected quote table
+      if (quoteTable) {
+        var table = quoteTable.querySelector('table');
+        var newRow = table.insertRow(-1); // Insert row at the end
+
+        // Insert cells for item and price
+        var itemCell = newRow.insertCell(0);
+        var priceCell = newRow.insertCell(1);
+        itemCell.textContent = item;
+        priceCell.textContent = price;
+
+        // Show the quote table
+        quoteTable.classList.add('active');
+      }
+    }
+  </script>
+</body>
+</html>
