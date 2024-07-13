@@ -1,206 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shimmer Button</title>
-<style>
-:root {
-    --glow-hue: 222deg;
-    --shadow-hue: 180deg;
-    --spring-easing: linear(
-        0, 0.002, 0.01 0.9%, 0.038 1.8%, 0.156, 0.312 5.8%, 0.789 11.1%, 1.015 14.2%,
-        1.096, 1.157, 1.199, 1.224 20.3%, 1.231, 1.231, 1.226, 1.214 24.6%,
-        1.176 26.9%, 1.057 32.6%, 1.007 35.5%, 0.984, 0.968, 0.956, 0.949 42%,
-        0.946 44.1%, 0.95 46.5%, 0.998 57.2%, 1.007, 1.011 63.3%, 1.012 68.3%,
-        0.998 84%, 1
-    );
-    --spring-duration: 1.33s;
-}
-@property --shimmer {
-    syntax: "<angle>";
-    inherits: false;
-    initial-value: 33deg;
-}
-
-@keyframes shimmer {
-    0% {
-        --shimmer: 0deg;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Glowing Icons with Bokeh Background</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    100% {
-        --shimmer: 360deg;
+
+    body, html, #app {
+      margin: 0;
+      width: 100%;
+      height: 100%;
     }
-}
 
-@keyframes shine {
-    0% {
-        opacity: 0;
+    #app {
+      overflow: hidden;
+      touch-action: pan-up;
+      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      text-shadow: 0 0 5px #ffffff, 0 0 20px #000, 0 0 30px #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
     }
-    15% {
-        opacity: 1;
+
+    #app h1 {
+      font-size: 60px;
+      text-transform: uppercase;
     }
-    55% {
-        opacity: 1;
+
+    #app a {
+      text-decoration: none;
+      color: #fff;
     }
-    100% {
-        opacity: 0;
+
+    #app canvas {
+      display: block;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
     }
-}
 
-@keyframes text {
-    0% {
-        background-position: 100% center;
-    }    
-    100% {
-        background-position: -100% center;
-    }    
-}
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-button {
-    color: var(--bg);
-    font-weight: 600;
-    background-image: linear-gradient(
-        315deg,
-        #ffc4ec -10%,
-        #efdbfd 50%,
-        #ffedd6 110%
-    );
-    padding: .8em 1.4em;
-    position: relative;
-    isolation: isolate;
-    box-shadow: 0 2px 3px 1px hsl(var(--glow-hue) 50% 20% / 50%), inset 0 -10px 20px -10px hsla(var(--shadow-hue),10%,90%,95%);
-    border-radius: 0.66em;
-    scale: 1;
-    transition: all var(--spring-duration) var(--spring-easing);
-}
+    .icon {
+      font-size: 8em;
+      background-color: #18191f;
+      color: #fff;
+      box-shadow: 2px 2px 2px #00000080, 10px 1px 12px #00000080,
+        2px 2px 10px #00000080, 2px 2px 3px #00000080, inset 2px 2px 10px #00000080,
+        inset 2px 2px 10px #00000080, inset 2px 2px 10px #00000080,
+        inset 2px 2px 10px #00000080;
+      border-radius: 29px;
+      padding: 11px 19px;
+      margin: 0 40px;
+      margin-bottom: 20px;
+      animation: animate 3s linear infinite;
+      text-shadow: 0 0 50px #0072ff, 0 0 100px #0072ff, 0 0 150px #0072ff,
+        0 0 200px #0072ff;
+      cursor: pointer;
+    }
 
-button:hover:not(:active),
-button.active {
-    transition-duration: calc(var(--spring-duration)*0.5);
-    scale: 1.2;
-    box-shadow: 0 4px 8px -2px hsl(var(--glow-hue) 50% 20% / 50%), inset 0 0 0 transparent;
-}
+    .icon:hover {
+      transform: scale(1.1);
+    }
 
-button:active {
-    scale: 1.1;
-    transition-duration: calc(var(--spring-duration)*0.5);
-}
+    .quote-table {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      margin-top: 20px;
+      max-width: 80%;
+      overflow-x: auto;
+      display: none;
+    }
 
-.shimmer {
-    position: absolute;
-    inset: -40px;
-    border-radius: inherit;
-    mask-image: conic-gradient(
-        from var(--shimmer, 0deg),
-        transparent 0%,
-        transparent 10%,
-        black 36%,
-        black 45%,
-        transparent 50%,
-        transparent 60%,
-        black 85%,
-        black 95%,
-        transparent 100%
-    );
-    mask-size: cover;
-    mix-blend-mode: plus-lighter;
-    animation: shimmer 1s linear infinite both;
-}
+    .quote-table.active {
+      display: block;
+    }
 
-button:hover .shimmer::before,
-button:hover .shimmer::after,
-button.active .shimmer::before,
-button.active .shimmer::after {
-    opacity: 1;
-    animation: shine 1.2s ease-in 1 forwards;
-}
+    .quote-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
 
-.shimmer::before,
-.shimmer::after {
-    transition: all 0.5s ease;
-    opacity: 0;
-    content: "";
-    border-radius: inherit;
-    position: absolute;
-    mix-blend-mode: color;
-    inset: 40px;
-    pointer-events: none;
-}
+    .quote-table th, .quote-table td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
 
-.shimmer::before {
-    box-shadow: 0 0 3px 2px hsl(var(--glow-hue) 20% 95%),
-        0 0 7px 4px hsl(var(--glow-hue) 20% 80%),
-        0 0 13px 4px hsl(var(--glow-hue) 50% 70%),
-        0 0 25px 5px hsl(var(--glow-hue) 100% 70%);
-    z-index: -1;
-}
+    .quote-table th {
+      background-color: #f2f2f2;
+    }
 
-.shimmer::after {
-    box-shadow: inset 0 0 0 1px hsl(var(--glow-hue) 70% 95%),
-        inset 0 0 2px 1px hsl(var(--glow-hue) 100% 80%),
-        inset 0 0 5px 2px hsl(var(--glow-hue) 100% 70%);
-    z-index: 2;
-}
+    .quote-table td {
+      font-size: 16px;
+    }
 
-button .text {
-    color: transparent;
-    background-clip: text;
-    background-color: var(--bg);
-    background-image: linear-gradient(120deg, transparent, hsla(var(--glow-hue),100%,80%,0.66) 40%, hsla(var(--glow-hue),100%,90%,.9) 50%, transparent 52%);
-    background-repeat: no-repeat;
-    background-size: 300% 300%;
-    background-position: center 200%;
-}
-
-button:hover .text,
-button.active .text {
-    animation: text .66s ease-in 1 both;
-}
-
-body,
-html {
-    display: flex;
-    height: 100vh;
-    padding: 0;
-    background-image: radial-gradient(
-        circle at 50% 0%,
-        rgb(67, 54, 74) 16.4%,
-        rgb(47, 48, 67) 68.2%,
-        rgb(27, 23, 36) 99.1%
-    );
-}
-
-main#app {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-</style>
+    @keyframes animate {
+      from {
+        filter: hue-rotate(0deg);
+      }
+      to {
+        filter: hue-rotate(360deg);
+      }
+    }
+  </style>
 </head>
 <body>
-<main id="app">
-    <button>
-        <span class="text">きみのてできりさいて</span>
-        <span class="shimmer"></span>
-    </button>
-</main>
+  <div id="app">
+    <canvas id="webgl-canvas"></canvas>
+    <div id="hero">
+      <h1>Ry</h1>
+    </div>
 
-<a class="social-icon codepen" href="https://codepen.io/simeydotme" title="view my codepens">
-    Made by Simey
-</a>
-<a class="social-icon twitter" href="https://twitter.com/simeydotme">
-    <svg viewBox="0 0 24 24">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-        <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z"></path>
-    </svg>
-</a>
-<a class="social-icon github" href="https://github.com/simeydotme">
-    <svg viewBox="0 0 24 24">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-        <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path>
-    </svg>
-</a>
+    <div class="container">
+      <div class="icon" onclick="showQuote('Facebook', 999)"><i class="fab fa-facebook-square"></i></div>
+      <div class="icon" onclick="showQuote('Apple', 1299)"><i class="fab fa-instagram"></i></div>
+      <div class="icon" onclick="showQuote('Twitter', 399)"><i class="fab fa-line"></i></div>
+      <div class="icon" onclick="showQuote('GitHub', 699)"><i class="fab fa-youtube"></i></div>
+      <div class="icon" onclick="showQuote('GitHub', 699)"><i class="fab fa-tiktok"></i></div>
+      <div class="icon" onclick="showQuote('GitHub', 699)"><i class="fab fa-twitter"></i></div>
+      <div class="icon" onclick="showQuote('GitHub', 699)"><i class="fab fa-telegram"></i></div>
+      <div class="icon" onclick="showQuote('GitHub', 699)"><i class="fab fa-twitch"></i></div>
+      <div class="icon" onclick="showQuote('GitHub', 699)"><i class="fab fa-spotify"></i></div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { Bokeh1Background } from 'https://cdn.jsdelivr.net/npm/threejs-components@0.0.2/build/backgrounds/bokeh1.cdn.min.js';
+
+    const bokeh1Background = Bokeh1Background(document.getElementById('webgl-canvas'));
+    bokeh1Background.loadMap('https://cdn.jsdelivr.net/npm/threejs-components@0.0.2/build/assets/bokeh-particles2.png');
+    bokeh1Background.setColors([0x391b9b, 0x82e0b8, 0x6caeeb]);
+  </script>
+
+  <!-- JavaScript to handle quote display -->
+  <script>
+    function showQuote(item, price) {
+      var quoteTable;
+
+      // Hide all quote tables
+      var allTables = document.querySelectorAll('.quote-table');
+      allTables.forEach(function(table) {
+        table.classList.remove('active');
+      });
+
+      // Determine which quote table to show based on the item clicked
+      switch (item) {
+        case 'Apple':
+          quoteTable = document.getElementById('quoteTableApple');
+          break;
+        case 'Twitter':
+          quoteTable = document.getElementById('quoteTableTwitter');
+          break;
+        case 'GitHub':
+          quoteTable = document.getElementById('quoteTableGitHub');
+          break;
+        case 'Facebook':
+          quoteTable = document.getElementById('quoteTableFacebook');
+          break;
+        default:
+          quoteTable = null;
+      }
+
+      // Display the selected quote table
+      if (quoteTable) {
+        var table = quoteTable.querySelector('table');
+        var newRow = table.insertRow(-1); // Insert row at the end
+
+        // Insert cells for item and price
+        var itemCell = newRow.insertCell(0);
+        var priceCell = newRow.insertCell(1);
+        itemCell.textContent = item;
+        priceCell.textContent = price;
+
+        // Show the quote table
+        quoteTable.classList.add('active');
+      }
+    }
+  </script>
 </body>
 </html>
